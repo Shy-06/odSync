@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  odsync:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./storage:/root/storage
+    environment:
+      - GIN_MODE=release
+    command: >
+      ./odSync
+      --port=8080
+      --storage=/root/storage
+      --upstream=https://mirrors.tuna.tsinghua.edu.cn
+      --cache-size=10240
+    restart: unless-stopped
